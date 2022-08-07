@@ -5,6 +5,7 @@ import { getAllPokemon , getPokemon } from './utils/pokemon';
 const App = () => {
   const initialURL = "https://pokeapi.co/api/v2/pokemon";
   const [loading, setLoading] = useState(true);
+  const [pokemonData, setPokemonData] = useState([]);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -18,17 +19,19 @@ const App = () => {
     fetchPokemonData();
   }, []);//1回だけ呼び出す場合は空の配列を指定する
 
-  const loadPokemon = (data) => {
-    let _pokemonData = Promise.all(
+  const loadPokemon = async(data) => {
+    let _pokemonData = await Promise.all(
       data.map((pokemon) => {
-        //console.log(pokemon);
         let pokemonRecord = getPokemon(pokemon.url);
+
         return pokemonRecord;
-        //console.log(pokemonRecord);
       })
     );
-
+    setPokemonData(_pokemonData);
   };
+
+  console.log(pokemonData);
+
 
   return <div className="App">
     {loading ? (

@@ -6,3 +6,7 @@ export const getAllPokemon = (url) => {
         .then((data) => resolve(data)); //上記をthenのdataとして受け取り、成功した時はresolveでdataをjson形式でretunに返す
     });
 };
+
+export const getPokemon = () => {
+
+};

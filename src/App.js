@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { getAllPokemon } from './utils/pokemon';
+import { getAllPokemon , getPokemon } from './utils/pokemon';
 
 const App = () => {
   const initialURL = "https://pokeapi.co/api/v2/pokemon";
@@ -8,12 +8,27 @@ const App = () => {
 
   useEffect(() => {
     const fetchPokemonData = async () => {
+      //全てのポケモンデータを取得
       let res = await getAllPokemon(initialURL);
-      console.log(res);
+      //各ポケモンの詳細なデータを取得
+      loadPokemon(res.results);
+      //console.log(res.results[0].url);
       setLoading(false);
     };
     fetchPokemonData();
   }, []);//1回だけ呼び出す場合は空の配列を指定する
+
+  const loadPokemon = (data) => {
+    let _pokemonData = Promise.all(
+      data.map((pokemon) => {
+        //console.log(pokemon);
+        let pokemonRecord = getPokemon(pokemon.url);
+        return pokemonRecord;
+        //console.log(pokemonRecord);
+      })
+    );
+
+  };
 
   return <div className="App">
     {loading ? (

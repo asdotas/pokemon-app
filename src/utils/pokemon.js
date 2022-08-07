@@ -15,7 +15,6 @@ export const getPokemon = (url) => {
             //console.log(data);
             resolve(data)
         });
-        
     });
 };
 

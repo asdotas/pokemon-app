@@ -36,13 +36,14 @@ const App = () => {
     setPokemonData(_pokemonData);
   };
 
-  console.log(pokemonData);
+  //console.log(pokemonData);
 
   const handleNextPage = async () => {
     setLoading(true);
     let data = await getAllPokemon(nextURL);
     //console.log(data);
     await loadPokemon(data.results);
+    setNextURL(data.next)
     setLoading(false);
 
   }
